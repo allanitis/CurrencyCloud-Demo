@@ -11,7 +11,9 @@
           "08024885-d6bf-4e81-bf71-9ea535036917",
           "26cb51d2-bf6c-4cb9-b88c-79642863939b",
           "be46064d-4bde-41c3-a90b-7b11ef0fc958",
-          "3123edfc-8635-411f-ac20-45212118c817"
+          "3123edfc-8635-411f-ac20-45212118c817",
+          "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+          "95df0b18-b4fb-4342-b129-9eb8f875866a"
         ],
         "isRemovable": false,
         "filePath": "TransferWise-POC"
@@ -91,18 +93,56 @@
             "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
           }
         }
+      },
+      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e": {
+        "id": "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "currency_cloud_conversion.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/currency_cloud_conversion.py",
+        "code": "from cc_auth import Auth\n\ndef handler(event, context):\n    a = Auth.get_auth_token()\n    print(a)\n\n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [],
+        "testCases": {
+          "ed4634ef-9a0a-48c6-8ca1-5c653ed188f1": {
+            "id": "ed4634ef-9a0a-48c6-8ca1-5c653ed188f1",
+            "name": "basicTest",
+            "functionId": "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      },
+      "95df0b18-b4fb-4342-b129-9eb8f875866a": {
+        "id": "95df0b18-b4fb-4342-b129-9eb8f875866a",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "cc_auth.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/cc_auth.py",
+        "code": "import requests\nimport json\n\nclass Auth:\n    def get_auth_token():\n        id = \"matt@fintechsandpit.com\"\n        user = \"e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        \n        try:\n            print(\"trying to request\")\n            res = requests.post(\n                \"https://devapi.currencycloud.com/v2/authenticate/api\",\n                params={},\n                headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n                data=\"login_id={}&api_key={}\".format(id, user)\n            )\n            auth_token = json.loads(res.text)[\"auth_token\"]\n        except BaseException as e:\n            print(e)\n            print('exception found')\n            raise(e)\n        \n        return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n"
       }
     },
-    "deletedFiles": [
-      "TransferWise-POC/lambda.js"
-    ],
+    "deletedFiles": [],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
     "openFiles": [
       "08024885-d6bf-4e81-bf71-9ea535036917",
       "be46064d-4bde-41c3-a90b-7b11ef0fc958",
-      "3123edfc-8635-411f-ac20-45212118c817"
+      "3123edfc-8635-411f-ac20-45212118c817",
+      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+      "95df0b18-b4fb-4342-b129-9eb8f875866a"
     ],
-    "currentFileId": "3123edfc-8635-411f-ac20-45212118c817",
+    "currentFileId": "95df0b18-b4fb-4342-b129-9eb8f875866a",
     "resources": {
       "ddbmyTable": {
         "name": "ddbmyTable",
@@ -166,6 +206,14 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/TransferWise-POC",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -200,7 +248,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1571330410061
+    "lastSave": 1571331426405
   },
   "VCS_STATE": {
     "provider": "GitHub",

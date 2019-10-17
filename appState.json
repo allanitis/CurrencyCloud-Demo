@@ -1,0 +1,180 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "92a55d49-41e7-4909-9769-25b5f279dc45": {
+        "id": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "parent": null,
+        "name": "TransferWise-POC",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "499bbd31-2cc5-48b7-ac60-398e6c7012b0",
+          "08024885-d6bf-4e81-bf71-9ea535036917",
+          "26cb51d2-bf6c-4cb9-b88c-79642863939b",
+          "be46064d-4bde-41c3-a90b-7b11ef0fc958"
+        ],
+        "isRemovable": false,
+        "filePath": "TransferWise-POC"
+      },
+      "499bbd31-2cc5-48b7-ac60-398e6c7012b0": {
+        "id": "499bbd31-2cc5-48b7-ac60-398e6c7012b0",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/lambda.js",
+        "code": "let Swagger = require('swagger-client');\n\nexports.handler = function (event, context, callback) {",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      },
+      "08024885-d6bf-4e81-bf71-9ea535036917": {
+        "id": "08024885-d6bf-4e81-bf71-9ea535036917",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "lambda.js.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/lambda.js.py",
+        "code": "import boto3\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myTable',\n        Key={'sietnrsient':{'S':'myPartitionKey'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
+      },
+      "26cb51d2-bf6c-4cb9-b88c-79642863939b": {
+        "id": "26cb51d2-bf6c-4cb9-b88c-79642863939b",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "__init__.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/__init__.py",
+        "code": ""
+      },
+      "be46064d-4bde-41c3-a90b-7b11ef0fc958": {
+        "id": "be46064d-4bde-41c3-a90b-7b11ef0fc958",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "dataAnonymisation.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/dataAnonymisation.py",
+        "code": "from botocore.vendored import requests\nfrom botocore.vendored import requests\n\ndef handler(event, context):\n    try:\n        res = requests.post(\n            \"http://localhost/tokenise\",\n            params={},\n            headers={\"Accept\":\"\",\"Content-Type\":\"applications/json\"},\n            data='plainText'\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n        try:\n            res = requests.post(\n                \"http://localhost/detokenise\",\n                params={},\n                headers={\"Accept\":\"\",\"Content-Type\":\"\"},\n                data=''\n            )\n            # your code goes here\n        except BaseException as e:\n            # error handling goes here\n            raise(e)\n    \n\n    \n    return {\"message\": \"Successfully executed\"}\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
+    "openFiles": [
+      "499bbd31-2cc5-48b7-ac60-398e6c7012b0",
+      "08024885-d6bf-4e81-bf71-9ea535036917",
+      "be46064d-4bde-41c3-a90b-7b11ef0fc958"
+    ],
+    "currentFileId": "be46064d-4bde-41c3-a90b-7b11ef0fc958",
+    "resources": {
+      "ddbmyTable": {
+        "name": "ddbmyTable",
+        "type": "DynamoDB",
+        "config": {
+          "mode": 0,
+          "operation": "get",
+          "table": {
+            "arn": "",
+            "name": "myTable",
+            "partitionKey": "sietnrsient",
+            "partitionKeyType": "S",
+            "hasSortKey": false,
+            "sortKey": "",
+            "sortKeyType": "S",
+            "payPerRequest": true,
+            "mode": 0
+          },
+          "isGlobalEditMode": false,
+          "parameters": {
+            "Key": {
+              "sietnrsient": "myPartitionKey"
+            },
+            "Item": {},
+            "ExpressionAttributeValues": {}
+          },
+          "triggerParams": {},
+          "validator": {
+            "validatableFields": {},
+            "validity": true
+          },
+          "valid": true
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      },
+      {
+        "lambdaId": "be46064d-4bde-41c3-a90b-7b11ef0fc958",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/TransferWise-POC",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "swagger-client": {
+          "name": "swagger-client",
+          "language": "javascript",
+          "version": "3.8.21",
+          "dev": false,
+          "notRemovable": false
+        },
+        "boto3": {
+          "name": "boto3",
+          "language": "python",
+          "version": "1.9.6",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "TransferWise-POC",
+    "projectDescription": "We are testing TransferWise APIs.",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1571328496953
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "TransferWise-POC",
+      "url": "https://github.com/allanitis/CurrencyCloud-Demo"
+    }
+  }
+}

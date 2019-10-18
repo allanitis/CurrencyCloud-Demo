@@ -105,7 +105,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "TransferWise-POC/currency_cloud_conversion.py",
-        "code": "from cc_auth_1 import Auth\n\ndef handler(event, context):\n    a = Auth.get_auth_token()\n    print(a)\n\n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "import requests\nfrom cc_auth_1 import Auth\n\ndef handler(event, context):\n    auth_token = Auth.get_auth_token()[\"auth_token\"]\n    print(auth_token)\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth_token,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=USD&sell_currency=EUR&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        print(res.text)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -160,15 +160,10 @@
     "deletedFiles": [],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
     "openFiles": [
-      "08024885-d6bf-4e81-bf71-9ea535036917",
-      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
-      "be46064d-4bde-41c3-a90b-7b11ef0fc958",
-      "3123edfc-8635-411f-ac20-45212118c817",
-      "95df0b18-b4fb-4342-b129-9eb8f875866a",
       "75156129-c2e0-4313-aaea-7db38f96af8f",
-      "db65b25a-f036-4047-abc8-6e3b4fe149e3"
+      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e"
     ],
-    "currentFileId": "db65b25a-f036-4047-abc8-6e3b4fe149e3",
+    "currentFileId": "75156129-c2e0-4313-aaea-7db38f96af8f",
     "resources": {
       "ddbmyTable": {
         "name": "ddbmyTable",
@@ -313,7 +308,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1571379355902
+    "lastSave": 1571384122431
   },
   "VCS_STATE": {
     "provider": "GitHub",

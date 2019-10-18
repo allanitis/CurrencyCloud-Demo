@@ -14,7 +14,8 @@
           "3123edfc-8635-411f-ac20-45212118c817",
           "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
           "95df0b18-b4fb-4342-b129-9eb8f875866a",
-          "75156129-c2e0-4313-aaea-7db38f96af8f"
+          "75156129-c2e0-4313-aaea-7db38f96af8f",
+          "db65b25a-f036-4047-abc8-6e3b4fe149e3"
         ],
         "isRemovable": false,
         "filePath": "TransferWise-POC"
@@ -143,11 +144,20 @@
         "isRemovable": true,
         "filePath": "TransferWise-POC/cc_auth_1.py",
         "code": "import requests\nimport json\n\nclass Auth:\n    def get_auth_token():\n        id = \"matt@fintechsandpit.com\"\n        user = \"e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        try:\n            print(\"trying to request\")\n            res = requests.post(\n                \"https://devapi.currencycloud.com/v2/authenticate/api\",\n                params={},\n                headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n                data=\"login_id={}&api_key={}\".format(id, user)\n            )\n            auth_token = json.loads(res.text)[\"auth_token\"]\n        except BaseException as e:\n            print(e)\n            print('exception found')\n            raise(e)\n        \n        return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n"
+      },
+      "db65b25a-f036-4047-abc8-6e3b4fe149e3": {
+        "id": "db65b25a-f036-4047-abc8-6e3b4fe149e3",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "myFunction.py",
+        "type": "PYTHON_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/myFunction.py",
+        "code": "import boto3\nimport dash\n\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myNewDataTable',\n        Key={'name':{'S':'matt'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
       }
     },
-    "deletedFiles": [
-      "TransferWise-POC/cc_auth-1.py"
-    ],
+    "deletedFiles": [],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
     "openFiles": [
       "08024885-d6bf-4e81-bf71-9ea535036917",
@@ -155,9 +165,10 @@
       "be46064d-4bde-41c3-a90b-7b11ef0fc958",
       "3123edfc-8635-411f-ac20-45212118c817",
       "95df0b18-b4fb-4342-b129-9eb8f875866a",
-      "75156129-c2e0-4313-aaea-7db38f96af8f"
+      "75156129-c2e0-4313-aaea-7db38f96af8f",
+      "db65b25a-f036-4047-abc8-6e3b4fe149e3"
     ],
-    "currentFileId": "75156129-c2e0-4313-aaea-7db38f96af8f",
+    "currentFileId": "db65b25a-f036-4047-abc8-6e3b4fe149e3",
     "resources": {
       "ddbmyTable": {
         "name": "ddbmyTable",
@@ -180,6 +191,39 @@
           "parameters": {
             "Key": {
               "sietnrsient": "myPartitionKey"
+            },
+            "Item": {},
+            "ExpressionAttributeValues": {}
+          },
+          "triggerParams": {},
+          "validator": {
+            "validatableFields": {},
+            "validity": true
+          },
+          "valid": true
+        }
+      },
+      "ddbmyNewDataTable": {
+        "name": "ddbmyNewDataTable",
+        "type": "DynamoDB",
+        "config": {
+          "mode": 0,
+          "operation": "get",
+          "table": {
+            "arn": "",
+            "name": "myNewDataTable",
+            "partitionKey": "date",
+            "partitionKeyType": "S",
+            "hasSortKey": false,
+            "sortKey": "",
+            "sortKeyType": "S",
+            "payPerRequest": true,
+            "mode": 0
+          },
+          "isGlobalEditMode": false,
+          "parameters": {
+            "Key": {
+              "date": "matt"
             },
             "Item": {},
             "ExpressionAttributeValues": {}
@@ -252,6 +296,12 @@
           "version": "2.22",
           "dev": false,
           "language": "python"
+        },
+        "dash": {
+          "name": "dash",
+          "version": "1.1",
+          "dev": false,
+          "language": "python"
         }
       }
     }
@@ -263,7 +313,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1571378557191
+    "lastSave": 1571379355902
   },
   "VCS_STATE": {
     "provider": "GitHub",

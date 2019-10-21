@@ -8,7 +8,6 @@
         "type": "DIRECTORY",
         "isDirectory": true,
         "children": [
-          "08024885-d6bf-4e81-bf71-9ea535036917",
           "26cb51d2-bf6c-4cb9-b88c-79642863939b",
           "be46064d-4bde-41c3-a90b-7b11ef0fc958",
           "3123edfc-8635-411f-ac20-45212118c817",
@@ -19,17 +18,6 @@
         ],
         "isRemovable": false,
         "filePath": "TransferWise-POC"
-      },
-      "08024885-d6bf-4e81-bf71-9ea535036917": {
-        "id": "08024885-d6bf-4e81-bf71-9ea535036917",
-        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
-        "name": "lambda.js.py",
-        "type": "PYTHON_FILE",
-        "isDirectory": false,
-        "children": [],
-        "isRemovable": true,
-        "filePath": "TransferWise-POC/lambda.js.py",
-        "code": "import boto3\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myTable',\n        Key={'sietnrsient':{'S':'myPartitionKey'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
       },
       "26cb51d2-bf6c-4cb9-b88c-79642863939b": {
         "id": "26cb51d2-bf6c-4cb9-b88c-79642863939b",
@@ -99,12 +87,12 @@
       "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e": {
         "id": "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
         "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
-        "name": "currency_cloud_conversion.py",
+        "name": "currency_cloud_conversion-2.py",
         "type": "PYTHON_LAMBDA",
         "isDirectory": false,
         "children": [],
         "isRemovable": true,
-        "filePath": "TransferWise-POC/currency_cloud_conversion.py",
+        "filePath": "TransferWise-POC/currency_cloud_conversion-2.py",
         "code": "import requests\nfrom cc_auth_1 import Auth\n\ndef handler(event, context):\n    auth_token = Auth.get_auth_token()[\"auth_token\"]\n    print(auth_token)\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth_token,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=USD&sell_currency=EUR&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        print(res.text)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    return {\"message\": \"Successfully executed\"}\n",
         "config": {
           "runtime": "python3.6",
@@ -157,11 +145,15 @@
         "code": "import boto3\nimport dash\n\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myNewDataTable',\n        Key={'name':{'S':'matt'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
       }
     },
-    "deletedFiles": [],
+    "deletedFiles": [
+      "TransferWise-POC/currency_cloud_conversion.py",
+      "TransferWise-POC/lambda.js.py"
+    ],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
     "openFiles": [
       "75156129-c2e0-4313-aaea-7db38f96af8f",
-      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e"
+      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
+      "db65b25a-f036-4047-abc8-6e3b4fe149e3"
     ],
     "currentFileId": "75156129-c2e0-4313-aaea-7db38f96af8f",
     "resources": {
@@ -303,12 +295,12 @@
   },
   "PROJECT_META": {
     "projectName": "TransferWise-POC",
-    "projectDescription": "We are testing TransferWise APIs.",
+    "projectDescription": "Currency Cloud Demo",
     "projectVersion": "1.0.0",
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1571384122431
+    "lastSave": 1571679798413
   },
   "VCS_STATE": {
     "provider": "GitHub",

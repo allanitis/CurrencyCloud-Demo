@@ -14,7 +14,8 @@
           "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
           "95df0b18-b4fb-4342-b129-9eb8f875866a",
           "75156129-c2e0-4313-aaea-7db38f96af8f",
-          "db65b25a-f036-4047-abc8-6e3b4fe149e3"
+          "db65b25a-f036-4047-abc8-6e3b4fe149e3",
+          "b5665c51-81ee-44bf-9410-fa5dba2d7174"
         ],
         "isRemovable": false,
         "filePath": "TransferWise-POC"
@@ -93,7 +94,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "TransferWise-POC/currency_cloud_conversion-2.py",
-        "code": "import requests\nfrom cc_auth_1 import Auth\n\ndef handler(event, context):\n    auth_token = Auth.get_auth_token()[\"auth_token\"]\n    print(auth_token)\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth_token,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=USD&sell_currency=EUR&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        print(res.text)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    return {\"message\": \"Successfully executed\"}\n",
+        "code": "import requests\nfrom cc_auth_1 import Auth\n\ndef handler(event, context):\n    auth_token = Auth.get_auth_token()[\"auth_token\"]\n    print(auth_token)\n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth_token,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=USD&sell_currency=EUR&fixed_side=buy&amount=1000&term_agreement=true\"\n        )\n        print(res.text)\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n\n    return {\"message\": \"Successfully executed\"}\n\n",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -131,7 +132,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "TransferWise-POC/cc_auth_1.py",
-        "code": "import requests\nimport json\n\nclass Auth:\n    def get_auth_token():\n        id = \"matt@fintechsandpit.com\"\n        user = \"e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        try:\n            print(\"trying to request\")\n            res = requests.post(\n                \"https://devapi.currencycloud.com/v2/authenticate/api\",\n                params={},\n                headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n                data=\"login_id={}&api_key={}\".format(id, user)\n            )\n            auth_token = json.loads(res.text)[\"auth_token\"]\n        except BaseException as e:\n            print(e)\n            print('exception found')\n            raise(e)\n        \n        return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n"
+        "code": "import requests\nimport json\n\nclass Auth:\n    def get_auth_token():\n        id = \"matt@fintechsandpit.com\"\n        user = \"e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n        try:\n            print(\"trying to request\")\n            res = requests.post(\n                \"https://devapi.currencycloud.com/v2/authenticate/api\",\n                params={},\n                headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n                data=\"login_id={}&api_key={}\".format(id, user)\n            )\n            auth_token = json.loads(res.text)[\"auth_token\"]\n        except BaseException as e:\n            print(e)\n            print('exception found')\n            raise(e)\n        \n        return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n\n"
       },
       "db65b25a-f036-4047-abc8-6e3b4fe149e3": {
         "id": "db65b25a-f036-4047-abc8-6e3b4fe149e3",
@@ -143,6 +144,25 @@
         "isRemovable": true,
         "filePath": "TransferWise-POC/myFunction.py",
         "code": "import boto3\nimport dash\n\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myNewDataTable',\n        Key={'name':{'S':'matt'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
+      },
+      "b5665c51-81ee-44bf-9410-fa5dba2d7174": {
+        "id": "b5665c51-81ee-44bf-9410-fa5dba2d7174",
+        "parent": "92a55d49-41e7-4909-9769-25b5f279dc45",
+        "name": "myTestFile.py",
+        "type": "PYTHON_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "TransferWise-POC/myTestFile.py",
+        "code": "from botocore.vendored import requests\nfrom botocore.vendored import requests\n\ndef handler(event, context):\n    \n    try:\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/conversions/create\",\n            params={},\n            headers={\"X-Auth-Token\":auth,\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"buy_currency=USD&sell_currency=EUR&fixed_side=buy&amount=2300.00&term_agreement=true\"\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    return {\"message\": \"Successfully executed\"}\n        try:\n            res = requests.get(\n                \"http://api.yapily.com/jwks\",\n                params={},\n                headers={\"Accept\":\"application/json;charset=UTF-8\"}\n            )\n            # your code goes here\n        except BaseException as e:\n            # error handling goes here\n            raise(e)\n\n\n",
+        "config": {
+          "runtime": "python3.6",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": []
       }
     },
     "deletedFiles": [
@@ -150,12 +170,8 @@
       "TransferWise-POC/lambda.js.py"
     ],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
-    "openFiles": [
-      "75156129-c2e0-4313-aaea-7db38f96af8f",
-      "a433a09c-4934-4ea3-9ab2-f0f6d2d98b9e",
-      "db65b25a-f036-4047-abc8-6e3b4fe149e3"
-    ],
-    "currentFileId": "75156129-c2e0-4313-aaea-7db38f96af8f",
+    "openFiles": [],
+    "currentFileId": "b5665c51-81ee-44bf-9410-fa5dba2d7174",
     "resources": {
       "ddbmyTable": {
         "name": "ddbmyTable",
@@ -260,6 +276,14 @@
         "shouldPersist": true,
         "displayOnly": false,
         "editable": true
+      },
+      {
+        "lambdaId": "b5665c51-81ee-44bf-9410-fa5dba2d7174",
+        "varKey": "PYTHONPATH",
+        "varValue": "/var/runtime:/var/task/TransferWise-POC",
+        "shouldPersist": true,
+        "displayOnly": false,
+        "editable": true
       }
     ],
     "packageJSON": {
@@ -300,7 +324,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1571679798413
+    "lastSave": 1573808977495
   },
   "VCS_STATE": {
     "provider": "GitHub",

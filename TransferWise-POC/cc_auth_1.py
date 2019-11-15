@@ -20,3 +20,4 @@ class Auth:
             raise(e)
         
         return {"message": "Successfully executed", "auth_token": auth_token}
+

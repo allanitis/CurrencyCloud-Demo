@@ -67,7 +67,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "TransferWise-POC/currency_cloud_authentication.py",
-        "code": "import requests\nimport json\n\ndef handler(event, context):\n    id = \"matt@fintechsandpit.com\"\n    user = \"e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19\"\n\n    print(event)\n    \n    try:\n        print(\"trying to request\")\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id={}&api_key={}\".format(id, user)\n        )\n        auth_token = json.loads(res.text)[\"auth_token\"]\n    except BaseException as e:\n        print(e)\n        print('exception found')\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n",
+        "code": "import requests\nimport json\n\ndef handler(event, context):\n    id = \"matt@fintechsandpit.com\"\n    user = \"\"\n\n    print(event)\n    \n    try:\n        print(\"trying to request\")\n        res = requests.post(\n            \"https://devapi.currencycloud.com/v2/authenticate/api\",\n            params={},\n            headers={\"Accept\":\"application/json\",\"Content-Type\":\"application/x-www-form-urlencoded\"},\n            data=\"login_id={}&api_key={}\".format(id, user)\n        )\n        auth_token = json.loads(res.text)[\"auth_token\"]\n    except BaseException as e:\n        print(e)\n        print('exception found')\n        raise(e)\n    \n    return {\"message\": \"Successfully executed\", \"auth_token\": auth_token}\n",
         "config": {
           "runtime": "python3.6",
           "handler": "handler",
@@ -170,8 +170,10 @@
       "TransferWise-POC/lambda.js.py"
     ],
     "rootNode": "92a55d49-41e7-4909-9769-25b5f279dc45",
-    "openFiles": [],
-    "currentFileId": "b5665c51-81ee-44bf-9410-fa5dba2d7174",
+    "openFiles": [
+      "3123edfc-8635-411f-ac20-45212118c817"
+    ],
+    "currentFileId": "3123edfc-8635-411f-ac20-45212118c817",
     "resources": {
       "ddbmyTable": {
         "name": "ddbmyTable",
@@ -324,7 +326,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1573808977495
+    "lastSave": 1578651120522
   },
   "VCS_STATE": {
     "provider": "GitHub",

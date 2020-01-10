@@ -4,7 +4,7 @@ import json
 class Auth:
     def get_auth_token():
         id = "matt@fintechsandpit.com"
-        user = "e48a2102f918bab738e327af297f5f335231ffb0803d4d513a6b7a808f0d2c19"
+        user = ""
         try:
             print("trying to request")
             res = requests.post(

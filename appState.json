@@ -143,7 +143,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "TransferWise-POC/myFunction.py",
-        "code": "import boto3\nimport dash\n\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myNewDataTable',\n        Key={'name':{'S':'matt'}}\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
+        "code": "from botocore.vendored import requests\nimport boto3\nimport dash\n\nddb = boto3.client(\"dynamodb\")\ntry:\n    data = ddb.get_item(\n        TableName='myNewDataTable',\n        Key={'name':{'S':'matt'}}\n    try:\n        res = requests.get(\n            \"https://api.sandbox.transferwise.tech/v1/rates\",\n            params={\"source\":\"usd\"},\n            headers={\"Accept\":\"application/json\"}\n        )\n        # your code goes here\n    except BaseException as e:\n        # error handling goes here\n        raise(e)\n    )\nexcept BaseException as e:\n    print(e)\n    raise(e)\n"
       },
       "b5665c51-81ee-44bf-9410-fa5dba2d7174": {
         "id": "b5665c51-81ee-44bf-9410-fa5dba2d7174",
@@ -329,7 +329,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1578651160169
+    "lastSave": 1596204739600
   },
   "VCS_STATE": {
     "provider": "GitHub",
